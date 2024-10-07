@@ -190,18 +190,61 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-        floatingActionButton: FloatingActionButton(onPressed: () {
-          showModalBottomSheet(context: context, builder:(context) {
-            return Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                CupertinoTimerPicker(onTimerDurationChanged: (value) {
+        floatingActionButton: Row(
+          children: [
+            FloatingActionButton(onPressed: () {
+              showModalBottomSheet(context: context, builder:(context) {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CupertinoTimerPicker(onTimerDurationChanged: (value) {
 
-                },),
-              ],
-            );
-          },);
-        },child: Icon(Icons.lock_clock),),
+                    },),
+                  ],
+                );
+              },);
+            },child: Icon(Icons.lock_clock),),
+            FloatingActionButton(onPressed: () {
+              showCupertinoModalPopup<void>(
+                context: context,
+                builder: (BuildContext context) => CupertinoActionSheet(
+                  title: const Text('Favorite Dessert'),
+                  message: const Text('\n\n Pleas Select the best Dessert From the \n Option below.'),
+                  actions: <CupertinoActionSheetAction>[
+                    CupertinoActionSheetAction(
+
+                      isDefaultAction: true,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text('Profiteroles'),
+                    ),
+                    CupertinoActionSheetAction(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text('Cannolis'),
+                    ),
+                    CupertinoActionSheetAction(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text('Trifle'),
+                    ),
+                    CupertinoActionSheetAction(
+                      isDestructiveAction: true,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text('Cancel'),
+                    ),
+                  ],
+                ),
+              );
+
+            },child: Icon(Icons.lock_clock),),
+          ],
+        )
       ),
     );
   }
