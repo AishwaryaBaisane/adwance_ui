@@ -24,7 +24,10 @@ class HomePage extends StatelessWidget {
       length: 4,
       child: Scaffold(
           appBar: AppBar(
-              title: const Text('Platform Convertor ',style: TextStyle(fontWeight: FontWeight.w700),),
+              title: const Text(
+                'Platform Convertor ',
+                style: TextStyle(fontWeight: FontWeight.w700),
+              ),
               actions: [
                 Obx(
                   () => Switch(
@@ -38,7 +41,7 @@ class HomePage extends StatelessWidget {
               ],
               bottom: const TabBar(tabs: [
                 Tab(
-                  icon: Icon(Icons.person),
+                  icon: Icon(Icons.person_add_alt),
                 ),
                 Tab(
                   text: 'CHATS',
@@ -124,7 +127,7 @@ class HomePage extends StatelessWidget {
                               ))!;
                             },
                             child: Padding(
-                              padding: const  EdgeInsets.only(right: 10),
+                              padding: const EdgeInsets.only(right: 10),
                               child: const Icon(
                                 Icons.calendar_today,
                               ),
@@ -174,7 +177,7 @@ class HomePage extends StatelessWidget {
                           chatController.insertRecord(d1, d2, d3,
                               chatController.ImgPath!.value.path, time, time2);
                           print(chatController.ImgPath!.value.path);
-                
+
                           chatController.txtName.clear();
                           chatController.txtPhone.clear();
                           chatController.txtChat.clear();
@@ -759,91 +762,110 @@ class HomePage extends StatelessWidget {
                       ),
                   itemCount: chatController.DataList.length),
             ),
-            Obx(() => Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '  Profile',
-                      style: TextStyle(fontSize: 25),
+            Obx(
+              () => Column(
+                children: [
+                  ListTile(
+                    leading: Icon(
+                      Icons.person,
+                      size: 30,
                     ),
-                    Obx(
-                          () => Switch(
+                    title: Text('Profile'),
+                    subtitle: Text('Update Profile Data'),
+                    trailing: Obx(
+                      () => Switch(
                         // onFocusChange: v,
                         value: pr.value,
                         onChanged: (value) {
                           pr.value = !pr.value;
                         },
                       ),
-                    )
-                  ],
-                ),
-                (pr.value)?Column(
-                  children: [
-                    GestureDetector(
-                      onTap: () async {
-                        im != im;
-                        ImagePicker imagePicker = ImagePicker();
-                        XFile? xFile = await imagePicker.pickImage(
-                            source: ImageSource.gallery);
-                        String path = xFile!.path;
-                        File fileImage = File(path);
-                        // print(fileImage);
-                        chatController.getImg1(fileImage);
-                      },
-                      child:CircleAvatar(
-                        radius: 70,
-                        backgroundImage: (chatController.ImgPath1 != null)
-                            ? FileImage(chatController.ImgPath1!.value)
-                            : NetworkImage(chatController.dummyImage.value),
-                      ),),
-                    SizedBox(
-                      width: width * 0.5,
-                      child: TextField(
-                        controller: chatController.name,
-                        decoration: InputDecoration(
-                            helperText: 'Name',
-                            hintText: (chatController.name == ' ')
-                                ? 'hiii'
-                                : '${chatController.name.text}'),
-                      ),
                     ),
-                    SizedBox(
-                      width: width * 0.5,
-                      child: TextField(
-                        controller: chatController.bio,
-                        decoration: InputDecoration(
-                            helperText: 'Bio',
-                            hintText: (chatController.bio == ' ')
-                                ? 'hiii'
-                                : '${chatController.bio.text}'),
-                      ),
+                  ),
+                  (pr.value)
+                      ? Container(
+                    width: width * 0.5,
+                    child: Column(
+                      children: [
+                        GestureDetector(
+                          onTap: () async {
+                            im != im;
+                            ImagePicker imagePicker = ImagePicker();
+                            XFile? xFile = await imagePicker.pickImage(
+                                source: ImageSource.gallery);
+                            String path = xFile!.path;
+                            File fileImage = File(path);
+                            // print(fileImage);
+                            chatController.getImg1(fileImage);
+                          },
+                          child: CircleAvatar(
+                            radius: 70,
+                            backgroundImage: (chatController.ImgPath1 != null)
+                                ? FileImage(chatController.ImgPath1!.value)
+                                : NetworkImage(chatController.dummyImage.value),
+                          ),
+                        ),
+                        SizedBox(
+                          width: width * 0.5,
+                          child: TextField(
+                            controller: chatController.name,
+                            decoration: InputDecoration(
+                                helperText: 'Name',
+                                hintText: (chatController.name == ' ')
+                                    ? 'hiii'
+                                    : '${chatController.name.text}'),
+                          ),
+                        ),
+                        SizedBox(
+                          width: width * 0.5,
+                          child: TextField(
+                            controller: chatController.bio,
+                            decoration: InputDecoration(
+                                helperText: 'Bio',
+                                hintText: (chatController.bio == ' ')
+                                    ? 'hiii'
+                                    : '${chatController.bio.text}'),
+                          ),
+                        ),
+                        SizedBox(height: height * 0.03,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextButton(onPressed: () {}, child: Text('Save')),
+                            TextButton(
+                                onPressed: () {
+                                  chatController.bio.clear();
+                                  chatController.name.clear();
+                                },
+                                child: Text('Clear'))
+                          ],
+                        )
+                      ],
                     ),
-                  ],
-                ):Column(
-                  children: [],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '  Theme',
-                      style: TextStyle(fontSize: 25),
+                  )
+                      : Column(
+                          children: [],
+                        ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.sunny,
+                      size: 30,
                     ),
-                    Obx(
-                          () => Switch(
+                    title: Text('Theme'),
+                    subtitle: Text('Change Theme'),
+                    trailing: Obx(
+                      () => Switch(
                         // onFocusChange: v,
                         value: theme1.value,
                         onChanged: (value) {
                           theme1.value = !theme1.value;
                         },
                       ),
-                    )
-                  ],
-                ),
-              ],
-            ),)
+                    ),
+                  ),
+                ],
+              ),
+            )
           ])),
     ));
 

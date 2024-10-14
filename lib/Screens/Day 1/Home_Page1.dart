@@ -20,13 +20,39 @@ class HomePage1 extends StatelessWidget {
     // ChatModal chatModal = Get.put(ChatModal());
     ChatController chatController = Get.put(ChatController());
     return SafeArea(
-      child: DefaultTabController(
-          length: 4,
+        child: DefaultTabController(
+      length: 4,
+      child: CupertinoPageScaffold(
+          navigationBar: CupertinoNavigationBar(
+            backgroundColor: (theme1.value)?Colors.black:Colors.white,
+            leading: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Platform Convertor ',
+                  style: TextStyle(
+                    color: (theme1.value)?Colors.white:Colors.black,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 20,
+                      letterSpacing: 1),
+                ),
+                Obx(
+                  () => CupertinoSwitch(
+                    // onFocusChange: v,
+                    value: data.value,
+                    onChanged: (value) {
+                      data.value = !data.value;
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
           child: CupertinoTabScaffold(
-            // restorationId: ,
             tabBar: CupertinoTabBar(
               items: const [
-                BottomNavigationBarItem(icon: Icon(CupertinoIcons.person)),
+                BottomNavigationBarItem(
+                    icon: Icon(CupertinoIcons.person), label: 'Profile'),
                 BottomNavigationBarItem(
                     icon: Icon(CupertinoIcons.chat_bubble_2), label: "Chat"),
                 BottomNavigationBarItem(
@@ -34,7 +60,7 @@ class HomePage1 extends StatelessWidget {
                   label: 'Call',
                 ),
                 BottomNavigationBarItem(
-                    icon: Icon(CupertinoIcons.settings), label: "Setting")
+                    icon: Icon(CupertinoIcons.settings), label: "Setting"),
               ],
             ),
             tabBuilder: (context, index) {
@@ -60,6 +86,6 @@ class HomePage1 extends StatelessWidget {
               );
             },
           )),
-    );
+    ));
   }
 }
