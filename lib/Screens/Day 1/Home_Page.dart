@@ -54,134 +54,136 @@ class HomePage extends StatelessWidget {
           body: TabBarView(children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: height * 0.07,
-                  ),
-                  GestureDetector(
-                      onTap: () async {
-                        ImagePicker imagePicker = ImagePicker();
-                        XFile? xFile = await imagePicker.pickImage(
-                            source: ImageSource.gallery);
-                        String path = xFile!.path;
-                        File fileImage = File(path);
-                        chatController.getImg(fileImage);
-                      },
-                      child: Obx(
-                        () => CircleAvatar(
-                          radius: 70,
-                          backgroundImage: (chatController.ImgPath != null)
-                              ? FileImage(chatController.ImgPath!.value)
-                              : NetworkImage(chatController.dummyImage.value),
-                        ),
-                      )),
-                  SizedBox(
-                    height: height * 0.02,
-                  ),
-                  buildTextField(
-                      icon: Icons.person,
-                      text: 'Full Name',
-                      Controler: chatController.txtName),
-                  buildTextField(
-                      icon: Icons.phone,
-                      text: 'Phone Number',
-                      Controler: chatController.txtPhone),
-                  buildTextField(
-                      icon: Icons.chat,
-                      text: 'Chat Conversion',
-                      Controler: chatController.txtChat),
-                  SizedBox(
-                    height: height * 0.02,
-                  ),
-                  Row(
-                    children: [
-                      InkWell(
-                          onTap: () async {
-                            chatController.selectDate = (await showDatePicker(
-                              builder: (context, child) {
-                                return Theme(
-                                  data: Theme.of(context).copyWith(
-                                    colorScheme: ColorScheme.light(
-                                        primary: Color(0xff386927),
-                                        onSurface: Colors.black,
-                                        primaryContainer: Colors.black,
-                                        surface: color1),
-                                    textButtonTheme: TextButtonThemeData(
-                                      style: TextButton.styleFrom(
-                                        foregroundColor: const Color(
-                                            0xff386927), // button text color
-                                      ),
-                                    ),
-                                  ),
-                                  child: child!,
-                                );
-                              },
-                              context: context,
-                              firstDate: DateTime(1950),
-                              lastDate: DateTime.now(),
-                            ))!;
-                          },
-                          child: Padding(
-                            padding: const  EdgeInsets.only(right: 10),
-                            child: const Icon(
-                              Icons.calendar_today,
-                            ),
-                          )),
-                      Text('Date Pick')
-                    ],
-                  ),
-                  SizedBox(
-                    height: height * 0.02,
-                  ),
-                  Row(
-                    children: [
-                      InkWell(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: height * 0.07,
+                    ),
+                    GestureDetector(
                         onTap: () async {
-                          chatController.selectedTime = (await showTimePicker(
-                            builder: (context, child) {
-                              return Theme(
-                                  data: Theme.of(context).copyWith(
+                          ImagePicker imagePicker = ImagePicker();
+                          XFile? xFile = await imagePicker.pickImage(
+                              source: ImageSource.gallery);
+                          String path = xFile!.path;
+                          File fileImage = File(path);
+                          chatController.getImg(fileImage);
+                        },
+                        child: Obx(
+                          () => CircleAvatar(
+                            radius: 70,
+                            backgroundImage: (chatController.ImgPath != null)
+                                ? FileImage(chatController.ImgPath!.value)
+                                : NetworkImage(chatController.dummyImage.value),
+                          ),
+                        )),
+                    SizedBox(
+                      height: height * 0.02,
+                    ),
+                    buildTextField(
+                        icon: Icons.person,
+                        text: 'Full Name',
+                        Controler: chatController.txtName),
+                    buildTextField(
+                        icon: Icons.phone,
+                        text: 'Phone Number',
+                        Controler: chatController.txtPhone),
+                    buildTextField(
+                        icon: Icons.chat,
+                        text: 'Chat Conversion',
+                        Controler: chatController.txtChat),
+                    SizedBox(
+                      height: height * 0.02,
+                    ),
+                    Row(
+                      children: [
+                        InkWell(
+                            onTap: () async {
+                              chatController.selectDate = (await showDatePicker(
+                                builder: (context, child) {
+                                  return Theme(
+                                    data: Theme.of(context).copyWith(
                                       colorScheme: ColorScheme.light(
                                           primary: Color(0xff386927),
                                           onSurface: Colors.black,
-                                          primaryContainer: Colors.green,
-                                          surface: color1)),
-                                  child: child!);
+                                          primaryContainer: Colors.black,
+                                          surface: color1),
+                                      textButtonTheme: TextButtonThemeData(
+                                        style: TextButton.styleFrom(
+                                          foregroundColor: const Color(
+                                              0xff386927), // button text color
+                                        ),
+                                      ),
+                                    ),
+                                    child: child!,
+                                  );
+                                },
+                                context: context,
+                                firstDate: DateTime(1950),
+                                lastDate: DateTime.now(),
+                              ))!;
                             },
-                            initialTime: TimeOfDay.now(),
-                            context: context,
-                          ))!;
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 10),
-                          child: const Icon(
-                            Icons.watch_later_outlined,
+                            child: Padding(
+                              padding: const  EdgeInsets.only(right: 10),
+                              child: const Icon(
+                                Icons.calendar_today,
+                              ),
+                            )),
+                        Text('Date Pick')
+                      ],
+                    ),
+                    SizedBox(
+                      height: height * 0.02,
+                    ),
+                    Row(
+                      children: [
+                        InkWell(
+                          onTap: () async {
+                            chatController.selectedTime = (await showTimePicker(
+                              builder: (context, child) {
+                                return Theme(
+                                    data: Theme.of(context).copyWith(
+                                        colorScheme: ColorScheme.light(
+                                            primary: Color(0xff386927),
+                                            onSurface: Colors.black,
+                                            primaryContainer: Colors.green,
+                                            surface: color1)),
+                                    child: child!);
+                              },
+                              initialTime: TimeOfDay.now(),
+                              context: context,
+                            ))!;
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 10),
+                            child: const Icon(
+                              Icons.watch_later_outlined,
+                            ),
                           ),
                         ),
-                      ),
-                      Text('Time Pick'),
-                    ],
-                  ),
-                  TextButton(
-                      onPressed: () {
-                        String d1 = chatController.txtName.text;
-                        String d2 = chatController.txtPhone.text;
-                        String d3 = chatController.txtChat.text;
-                        String time = chatController.selectDate.toString();
-                        String time2 = chatController.selectedTime.toString();
-                        chatController.insertRecord(d1, d2, d3,
-                            chatController.ImgPath!.value.path, time, time2);
-                        print(chatController.ImgPath!.value.path);
-
-                        chatController.txtName.clear();
-                        chatController.txtPhone.clear();
-                        chatController.txtChat.clear();
-                        // controller.txtAmount.clear();
-                        // controller.txtCategory.clear();
-                      },
-                      child: const Text('Save'))
-                ],
+                        Text('Time Pick'),
+                      ],
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          String d1 = chatController.txtName.text;
+                          String d2 = chatController.txtPhone.text;
+                          String d3 = chatController.txtChat.text;
+                          String time = chatController.selectDate.toString();
+                          String time2 = chatController.selectedTime.toString();
+                          chatController.insertRecord(d1, d2, d3,
+                              chatController.ImgPath!.value.path, time, time2);
+                          print(chatController.ImgPath!.value.path);
+                
+                          chatController.txtName.clear();
+                          chatController.txtPhone.clear();
+                          chatController.txtChat.clear();
+                          // controller.txtAmount.clear();
+                          // controller.txtCategory.clear();
+                        },
+                        child: const Text('Save'))
+                  ],
+                ),
               ),
             ),
             Obx(
